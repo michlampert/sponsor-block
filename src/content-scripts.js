@@ -1,6 +1,6 @@
-const ARTICLE_NESTING_LEVEL = 6
-
+const ARTICLE_NESTING_LEVEL =  window.location.pathname === "/" ? 7 : 6;
 const firstArticle = document.querySelector('[role="article"]')
+console.log('first', firstArticle)
 
 const shouldHide = (content) => Promise.resolve(Math.random() > 0.5)
 
