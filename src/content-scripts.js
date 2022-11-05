@@ -1,7 +1,9 @@
-function injectedFunction(tabId) {
+function main() {
     console.log("test123")
-    // alert("dasdasd")
     document.body.style.backgroundColor = 'orange';
+    const text = document.body;
+
+    // console.log(text)
 }
 
-injectedFunction();
+main();
