@@ -2,15 +2,14 @@
 import * as tf from '@tensorflow/tfjs';
 import * as DICTIONARY from './dictionary.js';
 
-const ARTICLE_NESTING_LEVEL =  window.location.pathname === "/" ? 7 : 6;
+const ARTICLE_NESTING_LEVEL = window.location.pathname === "/" ? 7 : 6;
 const firstArticle = document.querySelector('[role="article"]')
-console.log('first', firstArticle)
 
 const ENCODING_LENGTH = 20;
 
 function tokenize(wordArray) {
   let returnArray = [DICTIONARY.START];
-  
+
   for (var i = 0; i < wordArray.length; i++) {
     let encoding = DICTIONARY.LOOKUP[wordArray[i]];
     returnArray.push(encoding === undefined ? DICTIONARY.UNKNOWN : encoding);
@@ -48,30 +47,62 @@ const articlesList = new Array(ARTICLE_NESTING_LEVEL)
     .fill(null)
     .reduce((node) => node.parentElement, firstArticle)
 
-const articlesListObserver = new MutationObserver((mutations => {
-    mutations.forEach((mutation) => {
-        if (mutation.type !== 'childList') {
-            return;
-        }
-        mutation.addedNodes.forEach((node) => {
-            const text = node.querySelector('[data-ad-comet-preview="message"]')?.textContent
-            if (text) {
-                shouldHide(text)
-                    .then((hide) => {
-                        if (hide) {
-                            console.log('hiding ', text)
-                            const redDiv = document.createElement("div")
-                            redDiv.style.height = '50px'
-                            redDiv.style.width = '50px'
-                            redDiv.style.backgroundColor = 'red'
-                            node.replaceChildren(redDiv)
-                        }
-                    })
-                console.log(text)
-            }
-        })
+const hideIfContentIsSponsored = (node, text) => {
+  if (!text) {
+    return;
+  }
+  shouldHide(text)
+    .then((hide) => {
+      if (hide) {
+        const redDiv = document.createElement("div")
+        redDiv.innerHTML = '<div style="height: 50px; margin: 10px; width: 50px; background-color: blue"></div>'
+        node.replaceChildren(redDiv)
+      }
     })
+  console.log(text)
+}
+
+const getLoadMoreButton = (node) => {
+  return Array.prototype.slice.call(node.querySelectorAll('[role="button"]'))
+    .filter((node) => node.innerText === "Zobacz więcej")[0]
+}
+
+const processNode = (node) => {
+  const loadMoreButton = getLoadMoreButton(node)
+  if (loadMoreButton) {
+    const postContentContainer = new Array(3).fill(null)
+      .reduce((node) => node.parentElement, loadMoreButton)
+    if (!postContentContainer) {
+      return;
+    }
+    const containerCopy = postContentContainer.cloneNode(true)
+    const containerParent = postContentContainer.parentNode;
+    const loadedMoreObserver = new MutationObserver(() => {
+      const text = postContentContainer.textContent
+      hideIfContentIsSponsored(node, text)
+      loadedMoreObserver.disconnect()
+      containerParent.replaceChild(containerCopy, postContentContainer)
+      const newLoadMoreButton = getLoadMoreButton(containerCopy)
+      newLoadMoreButton?.addEventListener("click", () => {
+        containerParent.replaceChild(postContentContainer, containerCopy)
+      })
+    })
+    loadedMoreObserver.observe(postContentContainer, { childList: true })
+    loadMoreButton.click()
+  } else {
+    const text = node.querySelector('[data-ad-comet-preview="message"]')?.textContent
+    hideIfContentIsSponsored(node, text)
+  }
+}
+
+const articlesListObserver = new MutationObserver((mutations => {
+  mutations.forEach((mutation) => {
+    if (mutation.type !== 'childList') {
+      return;
+    }
+    mutation.addedNodes.forEach(processNode)
+  })
 }))
 
-articlesListObserver.observe(articlesList, { childList: true })
-
+articlesListObserver.observe(articlesList, {childList: true})
+document.querySelectorAll('[role="article"]').forEach(processNode)
