@@ -1,0 +1,2 @@
+# Extension for blocking sponsored posts created by:
+[Michał Lampert](https://github.com/michlampert), [Wojciech Achtelik](https://github.com/WojtAcht), [Marcin Kozubek](https://github.com/KartonM), [Tomasz Lamża](https://github.com/tmek1244)
