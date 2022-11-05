@@ -31,17 +31,17 @@ import './popup.css';
   function setupCounter(initialValue = 0) {
     document.getElementById('counter').innerHTML = initialValue;
 
-    document.getElementById('incrementBtn').addEventListener('click', () => {
-      updateCounter({
-        type: 'INCREMENT',
-      });
-    });
+    // document.getElementById('incrementBtn').addEventListener('click', () => {
+    //   updateCounter({
+    //     type: 'INCREMENT',
+    //   });
+    // });
 
-    document.getElementById('decrementBtn').addEventListener('click', () => {
-      updateCounter({
-        type: 'DECREMENT',
-      });
-    });
+    // document.getElementById('decrementBtn').addEventListener('click', () => {
+    //   updateCounter({
+    //     type: 'DECREMENT',
+    //   });
+    // });
   }
 
   function updateCounter({ type }) {

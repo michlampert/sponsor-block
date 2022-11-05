@@ -14,7 +14,8 @@
   },
   "action": {
     "default_title": "Sponsor Block",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "icons/logo.png"
   },
   "permissions": [
     "storage"

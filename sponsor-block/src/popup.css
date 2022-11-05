@@ -90,3 +90,16 @@ code {
   border: 0.5px dashed #000;
   opacity: 0.1;
 }
+
+img {
+  width: 350px;
+}
+
+.star:hover {
+  zoom: 2;
+}
+
+iframe {
+  width: 350px;
+  height: 800px;
+}
