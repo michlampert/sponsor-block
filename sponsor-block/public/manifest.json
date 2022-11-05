@@ -32,11 +32,8 @@
   ],
   "web_accessible_resources": [
     {
-        "resources": ["model.json"],
-        "matches": [
-            "https://www.facebook.com/*",
-            "https://facebook.com/*"
-        ]
+        "resources": ["model.json", "group1-shard1of1.bin"],
+        "matches": ["<all_urls>"]
     }
 ]
 }
