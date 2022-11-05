@@ -1,11 +1,11 @@
 {
     "manifest_version": 3,
-    "name": "Hello Extensions",
-    "description": "Base Level Extension",
-    "version": "1.0",
+    "name": "Sponsor Block",
+    "description": "Sponsor Block Extension",
+    "version": "0.1",
     "action": {
-        "default_popup": "main.html",
-        "default_icon": "img.png"
+        "default_popup": "popup/popup.html",
+        "default_icon": "images/img.png"
     }
 }
   
