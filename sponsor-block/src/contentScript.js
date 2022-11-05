@@ -45,6 +45,24 @@ const shouldHide = async (content) => {
   return await loadAndPredict(tokenize(lowercaseContentArray));
 };
 
+const counterStorage = {
+  get: (cb) => {
+    chrome.storage.sync.get(['count'], (result) => {
+      cb(result.count);
+    });
+  },
+  set: (value, cb) => {
+    chrome.storage.sync.set(
+      {
+        count: value,
+      },
+      () => {
+        cb();
+      }
+    );
+  },
+};
+
 const articlesList = new Array(ARTICLE_NESTING_LEVEL)
     .fill(null)
     .reduce((node) => node.parentElement, firstArticle)
@@ -56,6 +74,27 @@ const hideIfContentIsSponsored = (node, text) => {
   shouldHide(text)
     .then((hide) => {
       if (hide) {
+        counterStorage.get((count) => {
+          let newCount = count + 1;
+          counterStorage.set(newCount, () => {
+            document.getElementById('counter').innerHTML = newCount;
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+              const tab = tabs[0];
+              chrome.tabs.sendMessage(
+                tab.id,
+                {
+                  type: 'COUNT',
+                  payload: {
+                    count: newCount,
+                  },
+                },
+                (response) => {
+                  console.log('Current count value passed to contentScript file');
+                }
+              );
+            });
+          });
+        });
         console.log('hide', text)
         const redDiv = document.createElement("div")
         redDiv.innerHTML = '<div style="height: 50px; margin: 10px; width: 50px; background-color: blue"></div>'
