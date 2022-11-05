@@ -4,8 +4,13 @@
     "description": "Sponsor Block Extension",
     "version": "0.1",
     "action": {
-        "default_popup": "popup/popup.html",
-        "default_icon": "images/img.png"
+        "default_title": "Click to show an alert"
+    },
+    "permissions": [
+        "activeTab", "scripting"
+    ],
+    "background": {
+        "service_worker": "background.js"
     }
 }
   
