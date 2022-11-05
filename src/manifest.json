@@ -2,15 +2,25 @@
     "manifest_version": 3,
     "name": "Sponsor Block",
     "description": "Sponsor Block Extension",
-    "version": "0.1",
+    "version": "1.0",
     "action": {
         "default_title": "Click to show an alert"
     },
     "permissions": [
-        "activeTab", "scripting"
+        "activeTab",
+        "scripting",
+        "tabs"
     ],
-    "background": {
-        "service_worker": "background.js"
-    }
+    "content_scripts": [
+        {
+            "js": [
+                "content-scripts.js"
+            ],
+            "matches": [
+                "https://facebook.com/*",
+                "https://github.com/*"
+            ]
+        }
+    ]
 }
   
