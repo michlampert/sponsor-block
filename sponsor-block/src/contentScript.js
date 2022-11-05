@@ -42,8 +42,8 @@ function getLowercaseContentArray(content){
 
 const shouldHide = async (content) => {
   const lowercaseContentArray = getLowercaseContentArray(content);
-  return Promise.resolve(true)
-  // return await loadAndPredict(tokenize(lowercaseContentArray));
+  // return Promise.resolve(true)
+  return await loadAndPredict(tokenize(lowercaseContentArray));
 };
 
 const counterStorage = {
