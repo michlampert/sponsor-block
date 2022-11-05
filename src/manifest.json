@@ -5,7 +5,8 @@
     "version": "1.0",
     "action": {
         "default_title": "Click to show an alert",
-        "default_popup": "popup/popup.html"
+        "default_popup": "popup/popup.html",
+        "default_icon": "images/logo.png"
     },
     "permissions": [
         "activeTab",
