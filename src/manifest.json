@@ -17,8 +17,7 @@
                 "content-scripts.js"
             ],
             "matches": [
-                "https://facebook.com/*",
-                "https://github.com/*"
+                "https://www.facebook.com/*"
             ]
         }
     ]
