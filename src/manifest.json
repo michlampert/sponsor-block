@@ -18,11 +18,8 @@
             ],
             "matches": [
                 "https://www.facebook.com/*",
-                "https://facebook.com/*",
-                "https://www.facebook.com",
-                "https://facebook.com"
+                "https://facebook.com/*"
             ]
         }
     ]
 }
-  
