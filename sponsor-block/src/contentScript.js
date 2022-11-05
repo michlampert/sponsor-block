@@ -60,6 +60,8 @@ const hideIfContentIsSponsored = (node, text) => {
         const redDiv = document.createElement("div")
         redDiv.innerHTML = '<div style="height: 50px; margin: 10px; width: 50px; background-color: blue"></div>'
         node.replaceChildren(redDiv)
+      } else {
+        console.log('keep', text)
       }
     })
 }
@@ -105,6 +107,9 @@ const articlesListObserver = new MutationObserver((mutations => {
     mutation.addedNodes.forEach(processNode)
   })
 }))
-
 articlesListObserver.observe(articlesList, {childList: true})
+const dupa = new Array(ARTICLE_NESTING_LEVEL)
+  .fill(null)
+  .reduce((node) => node.parentElement, Array.prototype.slice.call(document.querySelectorAll('[role="article"]'))[1])
+articlesListObserver.observe(dupa, {childList: true})
 document.querySelectorAll('[role="article"]').forEach(processNode)
