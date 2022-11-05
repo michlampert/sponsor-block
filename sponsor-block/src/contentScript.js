@@ -20,7 +20,7 @@ function tokenize(wordArray) {
     returnArray.push(DICTIONARY.PAD);
     i++;
   }
-  console.log([returnArray]);
+  // console.log([returnArray]);
   return tf.tensor([returnArray]);
 }
 
@@ -55,12 +55,12 @@ const hideIfContentIsSponsored = (node, text) => {
   shouldHide(text)
     .then((hide) => {
       if (hide) {
+        console.log('hide', text)
         const redDiv = document.createElement("div")
         redDiv.innerHTML = '<div style="height: 50px; margin: 10px; width: 50px; background-color: blue"></div>'
         node.replaceChildren(redDiv)
       }
     })
-  console.log(text)
 }
 
 const getLoadMoreButton = (node) => {
