@@ -12,7 +12,9 @@ function tokenize(wordArray) {
 
   for (var i = 0; i < wordArray.length; i++) {
     let encoding = DICTIONARY.LOOKUP[wordArray[i]];
-    returnArray.push(encoding === undefined ? DICTIONARY.UNKNOWN : encoding);
+    if(i < ENCODING_LENGTH - 1){
+      returnArray.push(encoding === undefined ? DICTIONARY.UNKNOWN : encoding);
+    }
   }
   while (i < ENCODING_LENGTH - 1) {
     returnArray.push(DICTIONARY.PAD);
@@ -22,8 +24,7 @@ function tokenize(wordArray) {
   return tf.tensor([returnArray]);
 }
 
-
-const MODEL_JSON_URL = "https://raw.githubusercontent.com/michlampert/sponsor-block/feature/ts-model/sponsor-block/public/model.json"; // chrome.runtime.getURL("model.json");
+const MODEL_JSON_URL = "https://raw.githubusercontent.com/michlampert/sponsor-block/feature/ts-model/sponsor-block/public/model.json";
 
 const SPAM_THRESHOLD = 0.75;
 
