@@ -4,12 +4,14 @@
     "description": "Sponsor Block Extension",
     "version": "1.0",
     "action": {
-        "default_title": "Click to show an alert"
+        "default_title": "Click to show an alert",
+        "default_popup": "popup/popup.html"
     },
     "permissions": [
         "activeTab",
         "scripting",
-        "tabs"
+        "tabs",
+        "storage"
     ],
     "content_scripts": [
         {
