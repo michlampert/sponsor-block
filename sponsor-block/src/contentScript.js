@@ -42,7 +42,8 @@ function getLowercaseContentArray(content){
 
 const shouldHide = async (content) => {
   const lowercaseContentArray = getLowercaseContentArray(content);
-  return await loadAndPredict(tokenize(lowercaseContentArray));
+  return Promise.resolve(true)
+  // return await loadAndPredict(tokenize(lowercaseContentArray));
 };
 
 const counterStorage = {
@@ -97,7 +98,7 @@ const hideIfContentIsSponsored = (node, text) => {
         });
         console.log('hide', text)
         const redDiv = document.createElement("div")
-        redDiv.innerHTML = '<div style="height: 50px; margin: 10px; width: 50px; background-color: blue"></div>'
+        redDiv.innerHTML = '<div style="height: 40px; margin: 10px; background-color: rgba(186, 183, 175, 0.2); border-radius: 10px"></div>'
         node.replaceChildren(redDiv)
       } else {
         console.log('keep', text)
